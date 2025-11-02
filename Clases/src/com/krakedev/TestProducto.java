@@ -29,13 +29,13 @@ public class TestProducto {
 		System.out.println("Descripcion: " + productoA.descripcion);
 		System.out.println("Precio: " + productoA.precio);
 		System.out.println("Stock: " + productoA.stockActual);
-		System.out.println("--------------------------------------");
+		System.out.println("-------------------------------------");
 		System.out.println("PRODUCTO 2");
 		System.out.println("Nombre: " + productoB.nombre);
 		System.out.println("Descripcion: " + productoB.descripcion);
 		System.out.println("Precio: " + productoB.precio);
 		System.out.println("Stock: " + productoB.stockActual);
-		System.out.println("--------------------------------------");
+		System.out.println("-------------------------------------");
 		System.out.println("PRODUCTO 3");
 		System.out.println("Nombre: " + productoC.nombre);
 		System.out.println("Descripcion: " + productoC.descripcion);
