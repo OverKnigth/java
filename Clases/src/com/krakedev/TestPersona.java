@@ -8,14 +8,14 @@ public class TestPersona {
 		Persona p = new Persona();
 		Persona p2 = new Persona();
 		// Asignar un valor al objeto
-		p.nombre = "Juan";
-		p.edad = 18;
-		p2.nombre = "Stalin";
-		p2.edad = 21;
+		p.setNombre("Juan");
+		p.setEdad(18);
+		p2.setNombre("Stalin");
+		p2.setEdad(21);
 		// Visualizar los valores
-		System.out.println("Nombre: " + p.nombre);
-		System.out.println("Edad: " + p.edad);
-		System.out.println("Nombre 2: " + p2.nombre);
-		System.out.println("Edad 2: " + p2.edad);
+		System.out.println("Nombre: " + p.getNombre());
+		System.out.println("Edad: " + p.getEdad());
+		System.out.println("Nombre 2: " + p2.getNombre());
+		System.out.println("Edad 2: " + p2.getEdad());
 	}
 }

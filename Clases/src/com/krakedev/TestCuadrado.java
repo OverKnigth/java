@@ -16,9 +16,9 @@ public class TestCuadrado {
 		double perimetro2;
 		double perimetro3;
 		
-		c1.lado = 4;
-		c2.lado = 10;
-		c3.lado = 5;
+		c1.setLado(4);
+		c2.setLado(10);;
+		c3.setLado(5);;
 		
 		area1 = c1.calcularArea();
 		area2 = c2.calcularArea();
@@ -28,12 +28,15 @@ public class TestCuadrado {
 		perimetro2 = c2.calcularPerimetro();
 		perimetro3 = c3.calcularPerimetro();
 		
+		System.out.println("VALOR DEL LADO: " + c1.getLado());
 		System.out.println("AREA 1: " + area1);
 		System.out.println("PERIMETRO 1: " + perimetro1);
 		System.out.println("----------------------");
+		System.out.println("VALOR DEL LADO: " + c2.getLado());
 		System.out.println("AREA 2: " + area2);
 		System.out.println("PERIMETRO 2: " + perimetro2);
 		System.out.println("----------------------");
+		System.out.println("VALOR DEL LADO: " + c3.getLado());
 		System.out.println("AREA 3: " + area3);
 		System.out.println("PERIMETRO 3: " + perimetro3);
 		
