@@ -5,6 +5,12 @@ public class Auto {
 	private int anio;
 	private double precio;
 	
+	//CONSTRUCTOR
+	public Auto(String marca, double precio) {
+		this.marca = marca;
+		this.precio = precio;
+	}
+	
 	//METODOS GETTERS Y SETTERS
 	public String getMarca() {
 		return marca;

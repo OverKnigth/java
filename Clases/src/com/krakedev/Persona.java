@@ -5,6 +5,11 @@ public class Persona {
 	private int edad;
 	private double estatura;
 	
+	//CONSTRUCTOR
+	public Persona(int edad) {
+		this.edad = edad;
+	}
+	
 	//METODOS GETTERS Y SETTERS
 	public String getNombre() {
 		return nombre;
