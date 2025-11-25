@@ -1,7 +1,9 @@
 package com.krakedev.persistencia.servicios;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,8 +28,7 @@ public class AdminProductos {
 			con = ConexionBDD.conectar("prueba");
 			// PREPARAR EL INSERT
 			ps = con.prepareStatement(
-					"insert into productos(codigo, nombre, descripcion, precio, stock)"
-							+ "values(?,?,?,?,?)");
+					"insert into productos(codigo, nombre, descripcion, precio, stock)" + "values(?,?,?,?,?)");
 			ps.setInt(1, producto.getCodigo());
 			ps.setString(2, producto.getNombre());
 			ps.setString(3, producto.getDescripcion());
@@ -66,8 +67,7 @@ public class AdminProductos {
 			con = ConexionBDD.conectar("prueba");
 			// PREPARAR EL UPDATE
 			ps = con.prepareStatement(
-					"update productos set nombre=?, descripcion=?, precio=?, stock=?"
-							+ " where codigo=?");
+					"update productos set nombre=?, descripcion=?, precio=?, stock=?" + " where codigo=?");
 			ps.setString(1, producto.getNombre());
 			ps.setString(2, producto.getDescripcion());
 			ps.setBigDecimal(3, producto.getPrecio());
@@ -127,4 +127,64 @@ public class AdminProductos {
 			}
 		}
 	}
+
+	// METODO PARA HACER CONSULTAS
+	public static Producto buscarPorCodigo(int codigo) throws Exception {
+		Producto productoE = new Producto();
+		// LLAMAR AL METODO DE CONEXION CON LA BASE DE DATOS
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		// SABER QUE CODIGO LLEGO
+		LOGGER.trace("PRODUCTO A BUSCAR CON CODIGO: " + codigo);
+		try {
+			// LLAMAR A LA CONEXION
+			con = ConexionBDD.conectar("prueba");
+			// PREPARAR LA BUSQUEDA
+			ps = con.prepareStatement("select * from productos where codigo=?");
+			ps.setInt(1, codigo);
+			// EJECUTAR LA SENTANCIA DE INSERCION CON EXCEUTEQUERY ------------------
+			rs = ps.executeQuery();
+			// TRAER A LOS RESULTADOS
+			if(rs.next()) {
+				int codigoP = rs.getInt("codigo");
+				String nombre = rs.getString("nombre");
+				String descripcion = rs.getString("descripcion");
+				// TRAER EL PRECIO DE TIPO MONEY EN LA BDD
+				String precioStr = rs.getString("precio")
+				        .replace("€", "")
+				        .replace("$", "")
+				        .replace(" ", "")
+				        .replace(".", "")
+				        .replace(",", ".");
+				BigDecimal precio = new BigDecimal(precioStr);
+				int stock = rs.getInt("stock");
+				
+				// ASIGNAR AL OBJETO LOS RESULTADOS
+				productoE.setCodigo(codigoP);
+				productoE.setNombre(nombre);
+				productoE.setDescripcion(descripcion);
+				productoE.setPrecio(precio);
+				productoE.setStock(stock);
+			}
+
+		} catch (Exception e) {
+			// EN LUGAR DEL STACKTRACE PONER EL LOGGER
+			LOGGER.error("ERROR AL CONSULTAR POR CODIGO", e);
+			// MENSAJE QUE SE VA A VISUALIZAR
+			throw new Exception("ERROR AL CONSULTAR POR CODIGO");
+		} finally {
+			// CERRAR LA CONEXION CON LA BASE CON FINALLY Y CLOSE
+			try {
+				con.close();
+			} catch (SQLException e) {
+				// EN LUGAR DEL STACKTRACE PONER EL LOGGER
+				LOGGER.error("ERROR EN LA BASE DE DATOS", e);
+				// MENSAJE A VISUALIZAR
+				throw new Exception("ERROR EN LA BASE DE DATOS");
+			}
+		}
+		return productoE;
+	}
+
 }
